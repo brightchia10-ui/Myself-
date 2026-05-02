@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tube - Watch YouTube</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0f0f0f;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 { color: #ff0000; }
+        input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            font-size: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: none;
+        }
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #player {
+            margin: 30px auto;
+            max-width: 900px;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>▶ My Tube</h1>
+    <p>Paste any YouTube link below</p>
+    
+    <input type="text" id="url" placeholder="https://youtu.be/dQw4w9wgxcq" />
+    <br><br>
+    <button onclick="loadVideo()">▶ Play Video</button>
+    
+    <div id="player"></div>
+
+    <script>
+        function loadVideo() {
+            let url = document.getElementById("url").value.trim();
+            let videoId = null;
+
+            if (url.includes("youtu.be")) {
+                videoId = url.split("youtu.be/")[1].split("?")[0];
+            } else if (url.includes("v=")) {
+                videoId = url.split("v=")[1].split("&")[0];
+            } else if (url.length === 11) {
+                videoId = url;
+            }
+
+            if (videoId) {
+                document.getElementById("player").innerHTML = 
+                    `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    frameborder="0" allowfullscreen></iframe>`;
+            } else {
+                alert("Please paste a valid YouTube link or video ID");
+            }
+        }
+    </script>
+</body>
+</html>
